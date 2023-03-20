@@ -12,7 +12,7 @@ COLUMNS = [('column1', 'varchar(255)'), ('column2', 'varchar(255)')]
 database.create(TABLE, [f"{column[0]} {column[1]}" for column in COLUMNS])
 
 VAR1 = 'alguma coisa'
-VAR2 = 'o bibi é lindo'
+VAR2 = 'coisa alguma'
 
 result = database.insert(TABLE, {COLUMNS[0][0]:VAR1, COLUMNS[1][0]:VAR2})
 print(f"Test0 {result}")
