@@ -38,11 +38,13 @@ class Postgres:
         key_string = ", ".join(map(str, keys))
         value_string = ", ".join(map(str, ['%s' for v in values]))
         query = f'INSERT INTO {table} ({key_string}) VALUES ({value_string}) RETURNING *;'
-
-        self.cursor.execute(query, values)
-        result = self.cursor.fetchall()
-        self.con.commit()
-        return result
+        try:
+            self.cursor.execute(query, values)
+            result = self.cursor.fetchall()
+            self.con.commit()
+            return result
+        except psycopg2.DatabaseError:
+            return None
 
     def select (self, table, where:dict=None):
         """
@@ -61,8 +63,11 @@ class Postgres:
 
         query = f'SELECT * FROM {table}{where_string};'
         #print(f'{query}\n{values}')
-        self.cursor.execute(query, values)
-        return self.cursor.fetchall()
+        try:
+            self.cursor.execute(query, values)
+            return self.cursor.fetchall()
+        except psycopg2.DatabaseError:
+            return None
 
     def update (self, table, values, where:dict=None):
         """
@@ -88,11 +93,13 @@ class Postgres:
 
         vals = set_values+where_values
         #print(f'{query}\n{vals}')
-
-        self.cursor.execute(query, vals)
-        result = self.cursor.fetchall()
-        self.con.commit()
-        return result
+        try:
+            self.cursor.execute(query, vals)
+            result = self.cursor.fetchall()
+            self.con.commit()
+            return result
+        except psycopg2.DatabaseError:
+            return None
 
     def delete (self, table, where:dict=None):
         """
@@ -112,7 +119,10 @@ class Postgres:
         query = f'DELETE FROM {table}{where_string} RETURNING *;'
         #print(f'{query}\n{values}')
 
-        self.cursor.execute(query, values)
-        result = self.cursor.fetchall()
-        self.con.commit()
-        return result
+        try:
+            self.cursor.execute(query, values)
+            result = self.cursor.fetchall()
+            self.con.commit()
+            return result
+        except psycopg2.DatabaseError:
+            return None
