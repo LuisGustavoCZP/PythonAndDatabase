@@ -1,16 +1,19 @@
 """
 The main module of app
 """
+from mongodb import MongoDB
 from postgres import Postgres
 from sqlite import SQLite
 from utils import get_inputs, select
 
-database = Postgres()
+database = MongoDB()
 
 TABLE = 'table_name'
 COLUMNS = [('column1', 'varchar(255)'), ('column2', 'varchar(255)')]
 
-database.create(TABLE, [f"{column[0]} {column[1]}" for column in COLUMNS])
+#database.create(TABLE, [f"{column[0]} {column[1]}" for column in COLUMNS])
+
+input()
 
 OPTIONS = ["SELECT", "INSERT", "UPDATE", "DELETE"]
 
