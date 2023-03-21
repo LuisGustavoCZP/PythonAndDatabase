@@ -29,10 +29,13 @@ class Postgres:
         self.cursor.execute(f'CREATE TABLE IF NOT EXISTS {table} ({columns});')
         self.con.commit()
 
-    def insert (self, table, values=dict):
+    def insert (self, table, values:dict=None):
         """
         Postgres Insert Function
         """
+        if values is None or values == {}:
+            return None
+
         keys = tuple(values.keys())
         values = tuple(values.values())
         key_string = ", ".join(map(str, keys))
@@ -69,10 +72,13 @@ class Postgres:
         except psycopg2.DatabaseError:
             return None
 
-    def update (self, table, values, where:dict=None):
+    def update (self, table, values:dict=None, where:dict=None):
         """
         Postgres Update Function
         """
+        if values is None or values == {}:
+            return None
+
         where_items = []
         where_values = []
         if where is not None and where != {}:

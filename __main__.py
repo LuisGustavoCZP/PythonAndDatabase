@@ -11,42 +11,26 @@ database = Postgres()
 TABLE = 'table_name'
 COLUMNS = [('column1', 'varchar(255)'), ('column2', 'varchar(255)')]
 
-def insertData (data = None):
-    if data is None :
-        result = database.insert(TABLE, data)
-    else:
-        result = None
-    print(f"Insert {result}")
-
-def selectData (data = None):
-    if data is None :
-        result = database.select(TABLE)
-    else:
-        result = database.select(TABLE, data)
-    print(f"Select {result}")
-
-def updateData (data = None):
-    if data is None :
-        result = database.update(TABLE, data)
-    else:
-        result = None
-    print(f"Update {result}")
-
-def deleteData (data = None):
-    if data is None :
-        result = database.delete(TABLE, data)
-    else:
-        result = None
-    print(f"Delete {result}")
-
 database.create(TABLE, [f"{column[0]} {column[1]}" for column in COLUMNS])
 
-data = get_inputs(COLUMNS)
-insertData(data)
+data = get_inputs('Insira a', COLUMNS)
+result = database.insert(TABLE, data)
+print(f"Insert {result}")
 
-selectData()
-data = get_inputs(COLUMNS)
-selectData(data)
+result = database.select(TABLE)
+print(f"Select {result}")
 
-data = get_inputs(COLUMNS)
-updateData(data)
+where = get_inputs('Selecione a', COLUMNS)
+result = database.select(TABLE, where)
+print(f"Select {result}")
+
+data = get_inputs('Atualize a', COLUMNS)
+where = get_inputs('Onde a', COLUMNS)
+result = database.update(TABLE, data, where)
+print(f"Update {result}")
+
+""" 
+where = get_inputs('Delete onde', COLUMNS)
+result = database.delete(TABLE, where)
+print(f"Delete {result}") 
+"""
