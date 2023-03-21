@@ -7,7 +7,7 @@ def get_inputs (text, columns):
     """
     values = []
     for column in columns:
-        value = input(f"{text} {column[0]}")
+        value = input(f"{text} {column[0]}: ")
         if value :
             values.append((column[0], value))
 
