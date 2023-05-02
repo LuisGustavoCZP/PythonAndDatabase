@@ -17,13 +17,6 @@ class MongoDB:
         print(connection)
         self.client = MongoClient(connection)
         self.database = self.client[getenv('DB_DATABASE')]
-        #self.database.authenticate('user_name', 'user_password', mechanism='MONGODB-CR')
-#host=getenv('DB_HOST'),
-#port=getenv('DB_PORT')+'1',
-#{
-#"useNewUrlParser": True,
-#"useUnifiedTopology": True
-#})
 
     def create (self, table, columns:list[str]):
         """

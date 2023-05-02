@@ -31,28 +31,11 @@ services:
     networks:
       - mongo
     restart: unless-stopped
-
-  mongo-express:
-    container_name: py-mongo-express-stack
-    image: mongo-express
-    env_file: .env
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_USER}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD}
-      ME_CONFIG_MONGODB_URL: mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}1/
-    ports:
-      - 8081:8081
-    networks:
-      - mongo-express
-    restart: unless-stopped
     
-  
 networks:
   postgres:
     driver: bridge
   mongo:
-    driver: bridge
-  mongo-express:
     driver: bridge
 volumes:
   db:

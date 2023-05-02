@@ -25,7 +25,10 @@ while True:
 
     if INDEX == 1:
         where = get_inputs('Selecione a', COLUMNS)
-        result = database.select(TABLE, where)
+        print(where)
+        if where != {}:
+            result = database.select(TABLE, where)
+        else: result = database.select(TABLE)
         print(f"Select {result}")
 
     elif INDEX == 2:
